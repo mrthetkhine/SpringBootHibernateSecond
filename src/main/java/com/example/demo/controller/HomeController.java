@@ -36,7 +36,7 @@ public class HomeController {
 	public String course()
 	{
 		System.out.println("Controller course");
-		List<Course> courses = this.courseDao.getAllCourse();
+		List<Course> courses = this.courseDao.findByName("Java");
 		System.out.println("course size "+courses.size());
 		for(Course c : courses)
 		{
