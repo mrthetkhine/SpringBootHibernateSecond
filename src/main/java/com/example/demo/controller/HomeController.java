@@ -34,6 +34,9 @@ public class HomeController {
 		System.out.println("Java "+java.getTitle());
 		model.addAttribute("book", java);
 		System.out.println("Java Detail "+java.getBookDetail().getContent());
+		
+		int result = this.bookDao.updateBookTilte(1L, "Java SE");
+		System.out.println("Update result"+result);
 		return "home";
 	}
 	

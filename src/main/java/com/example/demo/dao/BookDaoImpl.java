@@ -51,7 +51,18 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 		query.setLong("id", id);
 		
 		Book b = (Book) query.uniqueResult();
-		//System.out.println("Book detail "+b.getBookDetail());
+		System.out.println("Before ftech book detail");
+		System.out.println("Book detail "+b.getBookDetail());
 		return b;
+	}
+
+	@Override
+	public int updateBookTilte(Long id, String title) {
+		String hql = "update Book  set title=:title WHERE id =:id";
+		Query query = this.getCurrentSession().createQuery(hql);
+		query.setLong("id", id);
+		query.setString("title", title);
+		
+		return query.executeUpdate();
 	}
 }
