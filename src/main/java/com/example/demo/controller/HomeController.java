@@ -37,6 +37,8 @@ public class HomeController {
 		
 		int result = this.bookDao.updateBookTilte(1L, "Java SE");
 		System.out.println("Update result"+result);
+		
+		System.out.println("Get book count "+ this.bookDao.getBookCount());
 		return "home";
 	}
 	

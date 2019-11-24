@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -73,5 +74,14 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 				.createNamedQuery(SqlConstant.GET_BOOK_BY_ID)
 			.setLong("id", id);
 		return (Book) query.uniqueResult();
+	}
+
+	@Override
+	public int getBookCount() {
+		Query query = this.getCurrentSession()
+				.createNamedQuery(SqlConstant.GET_BOOK_COUNT);
+		
+		List<Object> result = query.getResultList();
+		return ((BigInteger)result.get(0)).intValue();
 	}
 }
