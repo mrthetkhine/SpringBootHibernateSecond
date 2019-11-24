@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.constant.SqlConstant;
 import com.example.demo.dao.common.GenericDaoImpl;
 import com.example.demo.entity.Book;
 
@@ -64,5 +65,13 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 		query.setString("title", title);
 		
 		return query.executeUpdate();
+	}
+
+	@Override
+	public Book getBookByIdWithNameQuery(Long id) {
+		Query query = this.getCurrentSession()
+				.createNamedQuery(SqlConstant.GET_BOOK_BY_ID)
+			.setLong("id", id);
+		return (Book) query.uniqueResult();
 	}
 }

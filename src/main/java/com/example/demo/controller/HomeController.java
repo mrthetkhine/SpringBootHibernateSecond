@@ -30,7 +30,7 @@ public class HomeController {
 		{
 			System.out.println("Book "+b.getTitle());
 		}
-		Book java = this.bookDao.getById(1L);
+		Book java = this.bookDao.getBookByIdWithNameQuery(1L);
 		System.out.println("Java "+java.getTitle());
 		model.addAttribute("book", java);
 		System.out.println("Java Detail "+java.getBookDetail().getContent());
