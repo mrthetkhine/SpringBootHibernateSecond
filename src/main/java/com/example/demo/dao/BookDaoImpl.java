@@ -57,7 +57,14 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 		System.out.println("Book detail "+b.getBookDetail());
 		return b;
 	}
-
+	@Override
+	public Book getBookByIdWithNative(Long id) {
+		String sqlString = "SELECT * From book where id=:id";
+		Query query = this.getCurrentSession()
+				.createNativeQuery(sqlString, Book.class);
+		query.setLong("id", id);
+		return (Book) query.uniqueResult();
+	}
 	@Override
 	public int updateBookTilte(Long id, String title) {
 		String hql = "update Book  set title=:title WHERE id =:id";
@@ -84,4 +91,6 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 		List<Object> result = query.getResultList();
 		return ((BigInteger)result.get(0)).intValue();
 	}
+
+	
 }

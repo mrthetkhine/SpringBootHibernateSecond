@@ -39,6 +39,8 @@ public class HomeController {
 		System.out.println("Update result"+result);
 		
 		System.out.println("Get book count "+ this.bookDao.getBookCount());
+		Book book = this.bookDao.getBookByIdWithNative(1L);
+		System.out.println("Fetch bok with native "+book.getTitle());
 		return "home";
 	}
 	
