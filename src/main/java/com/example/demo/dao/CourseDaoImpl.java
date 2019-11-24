@@ -39,5 +39,6 @@ public class CourseDaoImpl implements CourseDao{
 		query.setParameter("name", name);
 		return query.list();
 	}
+	
 
 }

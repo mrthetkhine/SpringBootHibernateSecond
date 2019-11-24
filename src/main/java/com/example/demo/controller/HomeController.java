@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.dao.BookDao;
@@ -20,15 +21,19 @@ public class HomeController {
 	CourseDao courseDao;
 	
 	@GetMapping("/")
-	public String home()
+	public String home(Model model)
 	{
 		System.out.println("Controller Home");
 		List<Book> books = (List<Book>) this.bookDao.findBookByTitle("Java");
 		System.out.println("Book size "+books.size());
 		for(Book b : books)
 		{
-			System.out.println("Book "+b.getTile());
+			System.out.println("Book "+b.getTitle());
 		}
+		Book java = this.bookDao.getById(1L);
+		System.out.println("Java "+java.getTitle());
+		model.addAttribute("book", java);
+		System.out.println("Java Detail "+java.getBookDetail().getContent());
 		return "home";
 	}
 	
