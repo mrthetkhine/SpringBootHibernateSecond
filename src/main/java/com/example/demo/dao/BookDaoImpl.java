@@ -10,13 +10,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.constant.SqlConstant;
 import com.example.demo.dao.common.GenericDaoImpl;
+import com.example.demo.dto.BookDto;
 import com.example.demo.entity.Book;
 
 @Repository
@@ -101,9 +105,27 @@ public class BookDaoImpl extends GenericDaoImpl<Book, Long> implements BookDao {
 		Criteria c = this.getCurrentSession()
 					.createCriteria(this.daoType)
 					.createAlias("bookDetail", "bookDetail",JoinType.LEFT_OUTER_JOIN)
-					.add(Restrictions.like("bookDetail.content", description, MatchMode.ANYWHERE));
+					//.add(Restrictions.like("bookDetail.content", description, MatchMode.ANYWHERE))
+					.addOrder(Order.desc("title"));
 		return c.list();
 	}
 
+	@Override
+	public long getBookCountByCriteria() {
+		Criteria c = this.getCurrentSession()
+				.createCriteria(this.daoType);
+				c.setProjection(Projections.rowCount());
+		return (long)(c.list().get(0));
+	}
+	@Override
+	public List<BookDto> getAllTitle()
+	{
+		List<BookDto> bookDtos= this.getCurrentSession()
+				.createNativeQuery("SELECT title  from book")
+				.setResultTransformer( Transformers.aliasToBean( BookDto.class ) )
+				.list();
+		
+		return bookDtos;
+	}
 	
 }

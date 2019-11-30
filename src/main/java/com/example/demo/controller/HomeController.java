@@ -24,7 +24,7 @@ public class HomeController {
 	public String home(Model model)
 	{
 		System.out.println("Controller Home");
-		List<Book> books = (List<Book>) this.bookDao.findBookByDescription("bla");
+		List<Book> books = (List<Book>) this.bookDao.findBookByDescription("");
 		System.out.println("Book size "+books.size());
 		for(Book b : books)
 		{
@@ -38,7 +38,7 @@ public class HomeController {
 		int result = this.bookDao.updateBookTilte(1L, "Java SE");
 		System.out.println("Update result"+result);
 		
-		System.out.println("Get book count "+ this.bookDao.getBookCount());
+		System.out.println("Get book count "+ this.bookDao.getBookCountByCriteria());
 		Book book = this.bookDao.getBookByIdWithNative(1L);
 		System.out.println("Fetch bok with native "+book.getTitle());
 		return "home";
