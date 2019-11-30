@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +49,12 @@ public class CourseDaoImpl implements CourseDao{
 	public List<Course> findByNameWithCriteria(String name) {
 		Criteria c = this.getSession()
 						.createCriteria(Course.class)
-						.add(Restrictions.like("name", name,MatchMode.ANYWHERE));
+						.createAlias("users", "users",JoinType.LEFT_OUTER_JOIN)
+						.add(Restrictions.or(
+								Restrictions.like("name", name,MatchMode.ANYWHERE),
+								Restrictions.like("description", name,MatchMode.ANYWHERE)
+								)
+							);
 						
 		return c.list();
 	}
