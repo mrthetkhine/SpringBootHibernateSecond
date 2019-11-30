@@ -5,5 +5,5 @@ import com.example.demo.entity.*;
 public interface CourseDao {
 	List<Course> getAllCourse();
 	List<Course> findByName(String name);
-	
+	List<Course> findByNameWithCriteria(String name);
 }

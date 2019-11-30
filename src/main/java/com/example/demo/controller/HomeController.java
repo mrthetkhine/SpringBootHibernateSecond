@@ -45,15 +45,16 @@ public class HomeController {
 	}
 	
 	@GetMapping("/course")
-	public String course()
+	public String course(Model model)
 	{
 		System.out.println("Controller course");
-		List<Course> courses = this.courseDao.findByName("Java");
+		List<Course> courses = this.courseDao.findByNameWithCriteria("Java");
 		System.out.println("course size "+courses.size());
 		for(Course c : courses)
 		{
 			System.out.println("Course "+c.getName());
 		}
-		return "home";
+		model.addAttribute("courses", courses);
+		return "courses";
 	}
 }
