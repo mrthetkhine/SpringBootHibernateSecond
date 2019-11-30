@@ -54,7 +54,8 @@ public class CourseDaoImpl implements CourseDao{
 								Restrictions.like("name", name,MatchMode.ANYWHERE),
 								Restrictions.like("description", name,MatchMode.ANYWHERE)
 								)
-							);
+							)
+						.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 						
 		return c.list();
 	}
